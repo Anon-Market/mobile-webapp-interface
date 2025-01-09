@@ -1,25 +1,24 @@
-import { createWalletClient, createPublicClient, custom, formatEther, parseUnits, encodeFunctionData, parseEther } from 'viem'
+import { createPublicClient, http } from 'viem'
 import { mainnet, polygonAmoy, sepolia } from 'viem/chains'
-import type { IProvider } from "@web3auth/base";
-import { usdcTokenAbi, usdcTokenAddress, contractAddress_escrow, contractABI_escrow } from '../components/constants';
-import { Console } from 'console';
 
-import * as elliptic from 'elliptic';
+import { contractAddress_escrow, contractABI_escrow } from '@/components/constants';
 import { Hex, hexToBytes } from 'viem';
 import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
-import { getViewChain } from './viemRPC';
 
 const curve = new Curve(CurveName.SECP256K1);
 
-export const getDepositPublicKey = async (
-    provider: IProvider
-): Promise<string[]> => {
+export const getDepositPublicKey = async (): Promise<string[]> => {
     try {
-        // Créer un client public pour lire les données de la blockchain
+        // // Créer un client public pour lire les données de la blockchain
+        // const publicClient = createPublicClient({
+        //     chain: getViewChain(provider),
+        //     transport: custom(provider),
+        // });
+
         const publicClient = createPublicClient({
-            chain: getViewChain(provider),
-            transport: custom(provider),
-        });
+            chain: sepolia,
+            transport: http(), 
+          })
 
         type EscrowData = [string[], string[]]
 
@@ -55,7 +54,6 @@ const uint8ArrayToBigInt = (arr: Uint8Array): bigint => {
 };
 
 export const interactionAMM = async (
-    provider: IProvider,
     marketId: number,
     voteId: number,
     amountUsdc: number,
@@ -63,7 +61,7 @@ export const interactionAMM = async (
 ) => {
     try {
         // Appeler `getDepositPublicKey` pour récupérer les clés publiques
-        const publicKeys = await getDepositPublicKey(provider);
+        const publicKeys = await getDepositPublicKey();
 
         // Supprimer le préfixe `0x` des clés publiques
         const publicKeysWithoutPrefix = publicKeys.map(key => key.replace(/^0x/, ''));

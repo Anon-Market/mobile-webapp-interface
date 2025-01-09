@@ -1,31 +1,15 @@
-import { createWalletClient, createPublicClient, custom, formatEther, parseUnits, encodeFunctionData, parseEther } from 'viem'
+import { http, createPublicClient } from 'viem'
 import { mainnet, polygonAmoy, sepolia } from 'viem/chains'
-import type { IProvider } from "@web3auth/base";
-import { contractAddress_AMM, contractABI_AMM, contractAddress_escrow, contractABI_escrow } from '../components/constants';
-import { Console } from 'console';
-import { mark } from 'framer-motion/client';
 
-const getViewChain = (provider: IProvider) => {
-    switch (provider.chainId) {
-        case "1":
-            return mainnet;
-        case "0x13882":
-            return polygonAmoy;
-        case "0xaa36a7":
-            return sepolia;
-        default:
-            return mainnet;
-    }
-}
+import { contractAddress_AMM, contractABI_AMM } from '@/components/constants';
 
-export const getPriceAMM = async (
-    provider: IProvider, voteId: number, marketid: number
+export const getPriceAMM = async (voteId: number, marketid: number
 ): Promise<string> => {
     try {
-        // Créer un client public pour lire les données de la blockchain
+
         const publicClient = createPublicClient({
-            chain: getViewChain(provider),
-            transport: custom(provider),
+            chain: sepolia,
+            transport: http(),
         });
 
         // Lire les données du contrat via Viem

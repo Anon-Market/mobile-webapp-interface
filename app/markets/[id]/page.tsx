@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, Minus, Plus } from 'lucide-react';
 import { Button } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
-import { interactionAMM } from '../../../services/viemMarkets'; // Assurez-vous du bon chemin d'importation
-import { getPriceAMM } from '../../../services/viemAMM';
-import { useWeb3Auth } from "@web3auth/no-modal-react-hooks";
+import { interactionAMM } from '@/services/viemMarkets';
+import { getPriceAMM } from '@/services/viemAMM';
 
 interface Market {
     id: number;
@@ -41,11 +40,9 @@ export default function MarketPage() {
 
     const [loadingOdds, setLoadingOdds] = useState<boolean>(false);
 
-    const { provider } = useWeb3Auth();
-
     const fetchAndUpdateOdds = async (label: string) => {
-        if (!provider || !market) {
-            console.error("Provider or market data not available");
+        if (!market) {
+            console.error("Market data not available. Wait for it to load.");
             return;
         }
 
@@ -56,7 +53,7 @@ export default function MarketPage() {
             const voteId = label === "Yes" ? 0 : 1;
 
             // Appeler la fonction pour obtenir les prix on-chain
-            const odds = await getPriceAMM(provider, voteId, market.id);
+            const odds = await getPriceAMM(voteId, market.id);
 
             console.log(`Updated odds for ${label}:`, odds);
 
@@ -85,8 +82,6 @@ export default function MarketPage() {
 
     useEffect(() => {
         try {
-            // const storedPrivateKey = localStorage.getItem('privateKey');
-            // console.log('Stored private key:', storedPrivateKey);
             const storedMarket = localStorage.getItem('selectedMarket');
             const storedPreviousPage = localStorage.getItem('previousPage');
             console.log('Stored market:', storedMarket);
@@ -108,10 +103,6 @@ export default function MarketPage() {
 
     const handleBuy = async () => {
         if (!selectedOption || !market) return;
-        if (!provider) {
-            console.error('Error: Provider is not initialized.');
-            return;
-        }
         try {
             const marketId = market.id;
             const voteId = market.options.findIndex(option => option.label === selectedOption);
@@ -121,7 +112,6 @@ export default function MarketPage() {
             console.log("Paramètres InteractionAMM:", marketId, voteId, amountUsdc, claimed);
 
             const { ring, signature, message } = await interactionAMM(
-                provider,
                 marketId,
                 voteId,
                 amountUsdc,
