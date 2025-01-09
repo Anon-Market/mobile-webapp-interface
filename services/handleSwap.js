@@ -1,13 +1,17 @@
 // use this when there is no `"type": "module"` in your package.json, i.e. you're using commonjs
 
 import { SDK, HashLock, PrivateKeyProviderConnector, NetworkEnum } from "@1inch/cross-chain-sdk";
-import { solidityPackedKeccak256, randomBytes, Contract, Wallet } from 'ethers';
-import { createWalletClient, createPublicClient, custom, formatEther, parseUnits, encodeFunctionData, parseEther } from 'viem'
-import { usdcTokenAbi, usdcTokenAddress, contractAddress_escrow, contractABI_escrow } from '../constants/contracts';
+import { keccak256, solidityPack } from 'ethers/lib/utils';
+import { encodeFunctionData } from 'viem'
+import { usdcTokenAbi, usdcTokenAddress } from '@/constants/contracts';
 import Web3 from 'web3';
-import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
 
-const curve = new Curve(CurveName.SECP256K1);
+import { randomBytes } from 'crypto';
+
+function solidityPackedKeccak256(types, values) {
+    const packed = solidityPack(types, values);
+    return keccak256(packed);
+  }
 
 export default async function handleSwap(provider, publicClient, walletClient) {
     const account = await walletClient.getAddresses();
