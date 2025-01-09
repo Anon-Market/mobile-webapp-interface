@@ -1,19 +1,13 @@
-import { createWalletClient, createPublicClient, custom, formatEther, parseUnits, encodeFunctionData, parseEther, PublicClient, WalletClient } from 'viem'
-
+import { parseUnits, encodeFunctionData, PublicClient, WalletClient } from 'viem'
 import type { IProvider } from "@web3auth/base";
-import { usdcTokenAbi, usdcTokenAddress, contractAddress_escrow, contractABI_escrow } from '../components/constants';
-import { Console } from 'console';
+import { usdcTokenAbi, usdcTokenAddress, contractAddress_escrow, contractABI_escrow } from '../constants/contracts';
 
 import * as elliptic from 'elliptic';
-import { Hex, hexToBytes } from 'viem';
-import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
-import { chainId } from '@/environment/blockchain';
-
-const curve = new Curve(CurveName.SECP256K1);
 
 export async function handleApproveAction(provider: IProvider, publicClient: PublicClient, walletClient: WalletClient): Promise<any> {
     try {
-        const account = await walletClient.getAddresses();
+        const account = await walletClient.getAddresses(); // Take the first account (from the provider!)
+        console.log('Account:', account);
 
         // Étape 1 : Approve
         const data = encodeFunctionData({

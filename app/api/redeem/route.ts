@@ -1,7 +1,7 @@
 import { createPublicClient, createWalletClient, http, encodeFunctionData, Address } from 'viem';
 import { sepolia } from 'viem/chains';
 import { privateKey, rpcUrl } from '@/environment/blockchain';
-import { contractAddress_AMM, contractABI_AMM, contractAddress_Oracle, contractABI_Oracle, contractAddress_escrow, contractABI_escrow } from '../../../components/constants';
+import { contractAddress_AMM, contractABI_AMM, contractAddress_Oracle, contractABI_Oracle, contractAddress_escrow, contractABI_escrow } from '../../../constants/contracts';
 import { HermesClient } from "@pythnetwork/hermes-client";
 import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
 import { privateKeyToAccount } from 'viem/accounts';

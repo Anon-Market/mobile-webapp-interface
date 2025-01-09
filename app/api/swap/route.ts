@@ -1,7 +1,7 @@
 import { createPublicClient, createWalletClient, http, encodeFunctionData, Address } from 'viem';
 import { sepolia } from 'viem/chains';
 import { privateKey, rpcUrl } from '@/environment/blockchain';
-import { contractAddress_AMM, contractABI_AMM } from '../../../components/constants';
+import { contractAddress_AMM, contractABI_AMM } from '../../../constants/contracts';
 import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
 import { privateKeyToAccount } from 'viem/accounts';
 

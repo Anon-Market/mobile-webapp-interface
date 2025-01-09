@@ -1,8 +1,7 @@
-import { createPublicClient, http } from 'viem'
+import { createPublicClient, http, Hex, hexToBytes } from 'viem'
 import { mainnet, polygonAmoy, sepolia } from 'viem/chains'
 
-import { contractAddress_escrow, contractABI_escrow } from '@/components/constants';
-import { Hex, hexToBytes } from 'viem';
+import { contractAddress_escrow, contractABI_escrow } from '@/constants/contracts';
 import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
 
 const curve = new Curve(CurveName.SECP256K1);

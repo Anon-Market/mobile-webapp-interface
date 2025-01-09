@@ -1,7 +1,6 @@
 import { http, createPublicClient } from 'viem'
 import { mainnet, polygonAmoy, sepolia } from 'viem/chains'
-
-import { contractAddress_AMM, contractABI_AMM } from '@/components/constants';
+import { contractAddress_AMM, contractABI_AMM } from '@/constants/contracts';
 
 export const getPriceAMM = async (voteId: number, marketid: number
 ): Promise<string> => {

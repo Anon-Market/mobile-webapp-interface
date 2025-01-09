@@ -3,7 +3,7 @@
 import { SDK, HashLock, PrivateKeyProviderConnector, NetworkEnum } from "@1inch/cross-chain-sdk";
 import { solidityPackedKeccak256, randomBytes, Contract, Wallet } from 'ethers';
 import { createWalletClient, createPublicClient, custom, formatEther, parseUnits, encodeFunctionData, parseEther } from 'viem'
-import { usdcTokenAbi, usdcTokenAddress, contractAddress_escrow, contractABI_escrow } from '../components/constants';
+import { usdcTokenAbi, usdcTokenAddress, contractAddress_escrow, contractABI_escrow } from '../constants/contracts';
 import Web3 from 'web3';
 import { RingSignature, Curve, CurveName, Point } from '@cypher-laboratory/alicesring-lsag';
 
