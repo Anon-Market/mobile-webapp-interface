@@ -1,4 +1,4 @@
-import { supportedChains } from "@/types/blockchain";
+import { supportedChains } from "@/data/tokens";
 import { Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import { LogOut } from "lucide-react";
 import Image from "next/image";

@@ -11,7 +11,7 @@ export default function MobileNav() {
                 {/* <Badge content="1" color="danger" className="flex flex-col">
                 </Badge> */}
                 <NavLink href="/portfolio" icon={<Wallet size={20} />} label="Portfolio" />
-                <NavLink href="/account" icon={<User size={20} />} label="Profile" />
+                <NavLink href="/profile" icon={<User size={20} />} label="Profile" />
             </div>
         </nav>
     );

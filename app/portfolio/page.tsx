@@ -11,7 +11,7 @@ import { handleApproveAction, handleDepositAction } from "../../services/viemEsc
 import { interactionAMM } from '../../services/viemMarkets';
 import NavBar from "@/components/NavBar";
 import { getViewChain } from "@/services/viemRPC";
-import { portefolioMarkets } from "@/data/markets";
+import { portefolioMarkets } from "@/data/mockMarkets";
 
 import axios from 'axios';
 import { IProvider } from "@web3auth/base";

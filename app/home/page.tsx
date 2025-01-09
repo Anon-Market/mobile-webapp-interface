@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import NavBar from '@/components/NavBar';
 import { ChainSelector } from '@/components/ux/ChainSelector';
-import { availableMarkets, portefolioMarkets } from '@/data/markets';
+import { availableMarkets, portefolioMarkets } from '@/data/mockMarkets';
 
 export default function HomePage() {
     const router = useRouter();
