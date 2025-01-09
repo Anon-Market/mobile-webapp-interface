@@ -4,10 +4,10 @@ import "../styles/globals.css";
 
 import { NextUIProvider } from "@nextui-org/react";
 import Providers from "./providers";
-import Background from "../components/Background";
+import Background from "@/components/ux/Background";
 
 import { Funnel_Display } from "next/font/google";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/navigation/NavBar";
 
 export const metadata: Metadata = {
   title: "AnonMarket",

@@ -4,14 +4,15 @@ import Image from 'next/image';
 import { ArrowDownToLine, ArrowRightLeft, ArrowUpFromLine, CreditCard, Download } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Key, useState } from "react";
-import { createWalletClient, createPublicClient, custom, formatEther, parseUnits, encodeFunctionData, parseEther } from 'viem'
+import { createWalletClient, createPublicClient, custom } from 'viem'
 import { useWeb3Auth } from "@web3auth/no-modal-react-hooks";
 import handleSwap from "@/services/handleSwap"
 import { handleApproveAction, handleDepositAction } from "../../services/viemEscrow";
 import { interactionAMM } from '../../services/viemMarkets';
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/navigation/NavBar";
 import { getViewChain } from "@/services/viemRPC";
 import { portefolioMarkets } from "@/data/mockMarkets";
+import { sepolia } from 'viem/chains';
 
 import axios from 'axios';
 import { IProvider } from "@web3auth/base";
@@ -34,6 +35,10 @@ export default function PortfolioPage() {
     };
 
     const renderPositions = (positions: any[], isCurrent: boolean) => {
+        if (!provider) {
+            console.error('Error: Provider is not initialized.');
+            return;
+        }
         return (
             <div className="grid grid-cols-1 gap-4 w-full">
                 {positions.map((position, index) => (
@@ -106,12 +111,12 @@ export default function PortfolioPage() {
         }
 
         const publicClient = createPublicClient({
-            chain: getViewChain(provider),
+            chain: sepolia,
             transport: custom(provider),
         });
 
         const walletClient = createWalletClient({
-            chain: getViewChain(provider),
+            chain: sepolia,
             transport: custom(provider),
         });
 
@@ -148,7 +153,6 @@ export default function PortfolioPage() {
             const recipient = "0x33e6A216C8041fd7167bE7cBd756986e6fdd4B7C";
 
             const { ring, signature, message } = await interactionAMM(
-                provider,
                 marketId, // Market ID
                 outcome, // Vote ID
                 amountUsdc, // amountUSDC
@@ -185,12 +189,12 @@ export default function PortfolioPage() {
         }
 
         const publicClient = createPublicClient({
-            chain: getViewChain(provider),
+            chain: sepolia,
             transport: custom(provider),
         });
 
         const walletClient = createWalletClient({
-            chain: getViewChain(provider),
+            chain: sepolia,
             transport: custom(provider),
         });
 

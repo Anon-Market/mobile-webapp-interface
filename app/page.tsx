@@ -14,7 +14,7 @@ import { Button } from "@nextui-org/react";
 import { auth0_domain } from "@/environment/blockchain";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/navigation/NavBar";
 
 export default function Home() {
   const {

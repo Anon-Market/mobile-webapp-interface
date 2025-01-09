@@ -1,6 +1,6 @@
 'use client';
-import { SettingsMenu } from "@/components/accountPage/SettingsMenu";
-import NavBar from "@/components/NavBar";
+import { SettingsMenu } from "@/components/profile-page/SettingsMenu";
+import NavBar from "@/components/navigation/NavBar";
 import { Card, CardBody, Button } from "@nextui-org/react";
 import { useWeb3Auth } from "@web3auth/no-modal-react-hooks";
 import { LogOut } from 'lucide-react';

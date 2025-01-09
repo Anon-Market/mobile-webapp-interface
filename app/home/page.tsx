@@ -4,7 +4,7 @@ import { Card, CardBody, Input, Button, Tabs, Tab, Dropdown, DropdownTrigger, Dr
 import { Search, TrendingUp, Trophy, LandPlot } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/navigation/NavBar';
 import { ChainSelector } from '@/components/ux/ChainSelector';
 import { availableMarkets, portefolioMarkets } from '@/data/mockMarkets';
 
