@@ -12,6 +12,8 @@ import MarketDetails from "@/components/market-page/MarketDetails";
 import MarketOptions from "@/components/market-page/MarketOptions";
 import MarketPosition from '@/components/market-page/MarketPosition';
 
+import { fetchOddsForSingleMarket } from "@/components/home-page/fetchOdds";
+
 import { Market } from "@/types"
 
 interface Position {
@@ -26,7 +28,7 @@ export default function MarketPage() {
 
     // -- States pour les infos du marché --
     const [market, setMarket] = useState<Market | null>(null);
-    const [previousPage, setPreviousPage] = useState<string>('/home');
+    const [previousPage, setPreviousPage] = useState<string>("/home");
 
     // -- States pour l'option sélectionnée et le nombre d'USDC --
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -34,7 +36,7 @@ export default function MarketPage() {
 
     // -- État pour savoir si on est en train de charger les odds --
     const [loadingOdds, setLoadingOdds] = useState<boolean>(false);
-    const [oddsUpdated, setOddsUpdated] = useState(false); // Nouveau state
+    const [oddsUpdated, setOddsUpdated] = useState(false);
 
     // -- Position de l’utilisateur sur ce marché (exemple) --
     const [userPosition, setUserPosition] = useState<Position | null>({
@@ -47,8 +49,8 @@ export default function MarketPage() {
     // Au montage, on récupère le market et la page précédente depuis localStorage
     useEffect(() => {
         try {
-            const storedMarket = localStorage.getItem('selectedMarket');
-            const storedPreviousPage = localStorage.getItem('previousPage');
+            const storedMarket = localStorage.getItem("selectedMarket");
+            const storedPreviousPage = localStorage.getItem("previousPage");
             if (storedMarket) {
                 setMarket(JSON.parse(storedMarket));
             }
@@ -56,24 +58,29 @@ export default function MarketPage() {
                 setPreviousPage(storedPreviousPage);
             }
         } catch (error) {
-            console.error('Error loading market data:', error);
+            console.error("Error loading market data:", error);
         }
     }, []);
 
-    // Dès qu’on a le market, on sélectionne par défaut la 1ère option (si pas déjà sélectionnée)
-    // et on va chercher ses odds.
+    // Dès qu’on a le market, on met à jour ses odds si elles n'ont pas encore été fetchées
     useEffect(() => {
-        if (market && market.options.length > 0 && !oddsUpdated) {
-            // Récupérer tous les labels des options
-            const allLabels = market.options.map((option) => option.label);
+        if (market && !oddsUpdated) {
+            setLoadingOdds(true);
 
-            // Mettre à jour les odds pour toutes les options
-            fetchAndUpdateOdds(allLabels).then(() => {
-                setOddsUpdated(true); // Marque les odds comme mises à jour
-            });
+            // Mettre à jour les odds pour ce marché
+            fetchOddsForSingleMarket(market)
+                .then((updatedMarket) => {
+                    setMarket(updatedMarket);
+                    setOddsUpdated(true); // Odds mises à jour
+                })
+                .catch((error) => {
+                    console.error("Failed to fetch odds for market:", error);
+                })
+                .finally(() => {
+                    setLoadingOdds(false); // Fin du chargement
+                });
         }
-    }, [market, oddsUpdated]); // oddsUpdated dans les dépendances
-
+    }, [market, oddsUpdated]);
 
     /**
      * Incrémente ou décrémente le nombre de shares
