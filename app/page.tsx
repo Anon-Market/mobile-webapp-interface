@@ -18,7 +18,7 @@ import NavBar from "@/components/navigation/NavBar";
 
 export default function Home() {
   const {
-    connectTo,
+    connect,
     isConnected,
     isInitialized
   } = useWeb3Auth();
@@ -39,16 +39,8 @@ export default function Home() {
         <Button
           className="bg-black text-white h-[60px] text-lg"
           size="lg"
-          isDisabled={isConnected}
-          onClick={() =>
-            connectTo(WALLET_ADAPTERS.AUTH, {
-              loginProvider: "jwt",
-              extraLoginOptions: {
-                domain: auth0_domain,
-                verifierIdField: "sub",
-                connection: "worldcoin",
-              },
-            })
+          isDisabled={isConnected || !isInitialized}
+          onClick={() => { connect() }
           }>
           <ArrowRight />Start
         </Button>
