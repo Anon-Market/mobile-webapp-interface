@@ -1,3 +1,5 @@
+import { Position } from '../components/portfolio-page/PositionsList';
+
 export const availableMarkets = {
     finance: [
         {
@@ -65,7 +67,13 @@ export const availableMarkets = {
     ]
 };
 
-export const portefolioMarkets = {
+interface Portfolio {
+    balance: string;
+    currentPositions: Position[];
+    pastPositions: Position[];
+}
+
+export const portefolioMarkets: Portfolio = {
     balance: '1,234.56',
     currentPositions: [
         {
