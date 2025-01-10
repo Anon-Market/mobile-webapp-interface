@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardBody } from "@nextui-org/react";
+import Image from "next/image";
 
 interface BalanceCardProps {
   address: string | null;
@@ -14,13 +15,27 @@ export default function BalanceCard({ address, balance }: BalanceCardProps) {
   return (
     <Card className="bg-white/70 backdrop-blur-lg mb-6 w-full">
       <CardBody className="py-5">
-        <div className="flex flex-col items-center gap-2 mb-2">
-          {/* Adresse utilisateur */}
-          <span className="text-sm text-gray-600">Adresse</span>
-          <span className="text-md font-semibold">{shortAddress}</span>
+        <div className="flex flex-row justify-evenly items-center w-full gap-6">
+          {/* Bloc Adresse */}
+          <div className="flex flex-col items-center">
+            <span className="text-sm text-gray-600">Adresse</span>
+            <span className="text-md font-semibold">{shortAddress}</span>
+          </div>
 
-          {/* Balance USDC */}
-          <div className="text-lg font-bold mt-4">{displayBalance}</div>
+          {/* Bloc Balance USDC */}
+          <div className="flex flex-col items-center">
+            <span className="text-sm text-gray-600">Balance</span>
+            <div className="flex items-center gap-2 mt-1">
+              {/* Logo USDC */}
+              <Image
+                src="/usdc.png"
+                alt="USDC Icon"
+                width={24}
+                height={24}
+              />
+              <span className="text-md font-semibold">{displayBalance}</span>
+            </div>
+          </div>
         </div>
       </CardBody>
     </Card>
