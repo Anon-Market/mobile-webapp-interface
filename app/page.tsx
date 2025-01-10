@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 // web3auth
 import { WALLET_ADAPTERS } from "@web3auth/base";
-import { useWeb3Auth } from "@web3auth/no-modal-react-hooks";
+import { useWeb3Auth } from "@web3auth/modal-react-hooks";
 
 // ui
 import { Button } from "@nextui-org/react";
