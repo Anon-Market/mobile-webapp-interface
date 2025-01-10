@@ -12,7 +12,7 @@ const MarketOptions: FC<MarketOptionsProps> = ({
   onSelectOption,
   shares,
   handleSharesChange,
-  totalCost,
+  totalshares,
   handleBuy,
 }) => {
   return (
@@ -68,7 +68,7 @@ const MarketOptions: FC<MarketOptionsProps> = ({
             </Button>
           </div>
           <div className="text-center mt-2 text-gray-600">
-            Total Cost: ${totalCost.toFixed(2)}
+            Shares: {totalshares.toFixed(4)}
           </div>
         </div>
       )}

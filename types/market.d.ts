@@ -21,7 +21,7 @@ export interface MarketOption {
     onSelectOption: (label: string) => Promise<void>;
     shares: number;
     handleSharesChange: (increment: boolean) => void;
-    totalCost: number;
+    totalshares: number;
     handleBuy: () => void;
   }
   
