@@ -10,7 +10,7 @@ export default function DesktopNav() {
                 <div className="flex gap-6 ml-auto">
                     <NavLink href="/home" icon={<Home size={20} />} label="Home" />
                     <NavLink href="/portfolio" icon={<Wallet size={20} />} label="Portfolio" />
-                    <NavLink href="/account" icon={<User size={20} />} label="Profile" />
+                    <NavLink href="/profile" icon={<User size={20} />} label="Profile" />
                 </div>
             </div>
         </nav>

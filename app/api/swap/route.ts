@@ -15,8 +15,6 @@ export async function POST(request: Request) {
 
         const { message, signature, inputAmount, outcome, marketId } = body;
 
-        console.log('rpcURL:', rpcUrl);
-
         // Création du client public pour interagir avec le réseau Sepolia
         const publicClient = createPublicClient({
             chain: sepolia,
